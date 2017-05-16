@@ -1,0 +1,41 @@
+
+function main(){
+    if (typeof($.fn) == "undefined") {
+    var script = document.createElement("script")
+    script.type = "text/javascript"
+    script.src = "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"
+    script.onload = function() {
+      addBtn();
+      schedule()
+    }
+    document.body.appendChild(script)
+  } else {
+    addBtn();
+    schedule()
+  }
+}
+
+
+function schedule(){
+	setInterval(function(){
+		addBtn()
+	}, 1000)
+}
+
+function addBtn(){
+	try{
+		var clip_wrapper = $('.player_container');
+		clip_wrapper.map(function(index, item){
+			var button = $('<button class="download-btn" style="position: absolute;top: 100px;left: 10px;width: 6em;height: 4em;color: #fff;background: #000;border-radius: 10px;opacity: 0.5;">下载</button>');
+			button.on('click', function(e){
+				var url = $(this).parents('.clip_wrapper').find('.js-player').attr('data-config-url');
+				alert(url);
+			});
+			if($(item).find('.download-btn') && $(item).find('.download-btn').length){}else{
+				$(item).append(button);
+			}
+		});
+	}catch(ex){
+
+	}
+}
